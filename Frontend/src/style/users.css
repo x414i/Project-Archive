@@ -1,0 +1,413 @@
+:root {
+
+  --card-bg: #ffffff;
+  --text: #0f172a;
+  --text-light: #64748b;
+  --border: #e2e8f0;
+  --shadow: rgba(8, 145, 178, 0.1);
+}
+  body {
+    background-color: var(--background);
+    color: var(--text);
+  }
+  
+  .users-container {
+    padding: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .search-wrapper {
+    margin-bottom: 32px;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background-color: var(--card-bg);
+    color: var(--text);
+  }
+  
+  .search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
+  }
+  
+  .users-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  
+  .user-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px var(--shadow);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border);
+  }
+  
+  .user-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px var(--shadow);
+    border-color: var(--primary-light);
+  }
+  
+  .user-avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    margin-bottom: 16px;
+    object-fit: cover;
+    border: 3px solid var(--primary-light);
+  }
+  
+  .user-avatar-placeholder {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 16px;
+    border: 3px solid var(--primary-light);
+  }
+  
+  .user-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  
+  .user-email {
+    color: var(--text-light);
+    margin-bottom: 12px;
+    word-break: break-all;
+    font-size: 15px;
+  }
+  
+  .user-created {
+    font-size: 14px;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    margin-top: 32px;
+  }
+  
+  .pagination .button {
+    padding: 10px 20px;
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    background: var(--card-bg);
+    color: var(--primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .pagination .button:hover:not(:disabled) {
+    background: var(--primary);
+    color: white;
+  }
+  
+  .pagination .button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: var(--border);
+    color: var(--text-light);
+  }
+  
+  .pagination .span {
+    font-weight: 500;
+    color: var(--text);
+  }
+  .search-wrapper {
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .search-input {
+    width: 100%;
+    max-width: 600px; /* Adjust the max-width as needed */
+    padding: 12px 20px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background-color: var(--card-bg);
+    color: var(--text);
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .form-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .add-user-button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .graduation-semester-toggle .toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+  }
+  
+  .toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+  }
+  
+  .toggle-switch input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  .toggle-switch input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+  
+  .slider.round {
+    border-radius: 24px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  
+  .toggle-label {
+    margin-right: 10px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  /* Disabled state */
+  .toggle-switch input:disabled + .slider {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+  }
+  
+  .toggle-switch input:disabled + .slider:before {
+    background-color: #a0a0a0;
+  }
+  .user-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 350px; /* Adjust based on your card size */
+  }
+  .graduation-semester-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+  }
+  
+  .graduation-checkbox {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+  }
+  
+  .graduation-checkbox input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .checkbox-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 50px;
+  }
+  
+  .checkbox-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .graduation-checkbox input:checked + .checkbox-slider {
+    background-color: #28a745; /* Green color for active state */
+  }
+  
+  .graduation-checkbox input:checked + .checkbox-slider:before {
+    transform: translateX(24px);
+  }
+  
+  .graduation-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    user-select: none; /* Prevent text selection */
+  }
+  .success-message {
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+    background-color: #e7f9ed; /* Light green for success */
+    color: #2e7d32; /* Dark green for text */
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #c5e6d5;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .error-label {
+    color: red;
+  }
+  
+  .error-input {
+    border: 1px solid red;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 0.2rem;
+  }
+  
+/* Overlay content styles */
+.overlaye-content {
+  background-color: #fff; /* White background for the form */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px;
+  width: 90%; /* Responsive width */
+  max-width: 500px; /* Maximum width */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  position: relative; /* For positioning the close button */
+}
+
+/* Title styles */
+.overlaye-content h2 {
+  margin: 0 0 20px; /* Space below the title */
+  font-size: 24px; /* Title font size */
+  color: #333; /* Dark text color */
+}
+.profile-avatar-text {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #007bff; /* Example background color */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  font-weight: bold;
+  text-transform: uppercase; /* Ensure the letter is uppercase */
+}

@@ -1,0 +1,26 @@
+# Use the official Go 1.23 image
+FROM golang:1.23
+
+# Set working directory
+WORKDIR /app
+
+# Copy go mod and sum files
+COPY go.mod go.sum ./
+
+# Download dependencies
+RUN go mod download
+
+# Copy the rest of the application code
+COPY . .
+
+# Install PostgreSQL driver
+RUN go get github.com/lib/pq
+
+# Build the application
+RUN go build -o api ./cmd/api
+
+# Expose the app port
+EXPOSE 8080
+
+# Start the application directly
+CMD ["./api"]

@@ -1,0 +1,982 @@
+
+/* Container */
+#project-list-container {
+  padding: 60px 5%;
+  background-color: rgba(255, 255, 255, 0.7); /* Glassmorphism effect */
+  backdrop-filter: blur(15px); /* Blurring the background */
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Header Styling */
+#project-list-container h1 {
+  font-size: 52px;
+  color: #1a374d;
+  text-align: center;
+  margin-bottom: 50px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+  line-height: 1.2;
+}
+
+#project-list-container h1::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 5px;
+  background: linear-gradient(90deg, #00b4d8, #3a86ff);
+  margin: 12px auto 0;
+  z-index: -1;
+  border-radius: 5px;
+}
+
+/* Controls (Search & Sort) */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.search-input,
+.sort-select {
+  padding: 14px;
+  border: 2px solid rgba(26, 55, 77, 0.2);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.6);
+  color: #333;
+  font-size: 16px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.search-input:focus,
+.sort-select:focus {
+  border-color: #3a86ff;
+  background: rgba(255, 255, 255, 0.8);
+  outline: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.search-input {
+  width: 100%;
+  max-width: 500px;
+}
+
+.sort-select {
+  width: 100%;
+  max-width: 220px;
+  cursor: pointer;
+}
+
+/* Add Project Button */
+.add-project-btn {
+  display: inline-block; /* Ensures button takes only the necessary space */
+  padding: 16px 34px;
+  font-size: 18px;
+  color: #fff;
+  background: linear-gradient(135deg, #00b4d8, #3a86ff);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+  margin: 30px 10px; /* Added small margin for spacing */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.add-project-btn:hover {
+  background: linear-gradient(135deg, #0096c7, #0077b6);
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Project List Styling */
+.project-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 2fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+/* Individual Project Item Styling */
+.project-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-item a {
+  display: block; /* Ensure entire project item is clickable */
+  color: inherit; /* Inherit text color */
+  text-decoration: none; /* Remove underline */
+  height: 100%; /* Make the link cover the whole item */
+  transition: all 0.3s ease;
+}
+
+.project-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.project-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0, 180, 216, 0.2), rgba(58, 134, 255, 0.2));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none; /* This makes sure the pseudo-element doesn't block clicks */
+}
+.project-item:hover::before {
+  opacity: 1;
+}
+
+.project-name {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.project-description {
+  font-size: 16px;
+  color: #555;
+}
+
+/* No projects found styling */
+.no-projects {
+  text-align: center;
+  color: #999;
+  font-size: 1.2em;
+}
+
+
+
+/* Success Input */
+.input-success {
+  border-color: #28a745;
+}
+
+.input-success:focus {
+  border-color: darkgreen;
+}
+/* Media Styling */
+.post-card img,
+.post-card video {
+  max-width: 100%; /* Responsive width */
+  max-height: 300px; /* Limit height */
+  border-radius: 10px; /* Rounded corners for images */
+  margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+  cursor: pointer; /* Indicate that the image is clickable */
+}
+
+.post-card img:hover,
+.post-card video:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+}
+.media-container img {
+  width: 100%; /* Responsive */
+  height: auto; /* Maintain aspect ratio */
+  max-height: 400px; /* Limit height */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  object-fit: cover; /* Cover the container while maintaining aspect ratio */
+  transition: transform 0.3s ease, filter 0.3s ease; /* Smooth scaling and filter transition */
+}
+
+.media-container img:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+  filter: brightness(1.1); /* Slightly brighten on hover */
+}
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #e8f0f2;
+  color: #333;
+  line-height: 1.6;
+  overflow-x: hidden;
+  padding-top: 60px; /* Adjust padding for navbar */
+}
+
+
+
+
+.pagination-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px 20px;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap; /* Allow wrapping to the next line */
+}
+
+.pagination-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  background-color: #00b4d8;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.pagination-btn i {
+  font-size: 30px;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: #0077b6;
+  transform: scale(1.05);
+}
+
+.pagination-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.pagination-btn.active {
+  background: linear-gradient(135deg, #00b4d8, #3a86ff);
+}
+
+.pagination-info {
+  margin-top: 10px;
+  font-size: 17px;
+  color: #666;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+  .pagination {
+    gap: 8px;
+    padding: 8px 15px;
+  }
+
+  .pagination-btn {
+    width:40px;
+    height: 40px;
+  }
+
+  .pagination-btn i {
+    font-size: 16px;
+  }
+
+  .pagination-info {
+    font-size: 12px;
+  }
+}
+
+.user-associated-projects {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #f9f9f9; /* Light background for contrast */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.section-title {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #333; /* Darker text for better readability */
+}
+
+.project-list {
+  list-style: none;
+  padding: 0;
+}
+
+.project-card {
+  background-color: #fff; /* White background for cards */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 8px; /* Rounded corners */
+  margin-bottom: 15px; /* Space between cards */
+  padding: 15px; /* Padding inside cards */
+  transition: transform 0.2s; /* Smooth hover effect */
+}
+
+.project-card:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+.project-link {
+  text-decoration: none; /* Remove underline from links */
+  color: inherit; /* Inherit color from parent */
+}
+
+/* Form Container */
+.overlaying-content {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 1000px;
+  margin: 2rem auto;
+  direction: rtl;
+  max-height: 90vh; /* Set a max height for scrolling */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
+/* Scrollable Form Content */
+.formcont {
+  flex: 1;
+  overflow-y: auto; /* Ensure the form content is also scrollable */
+  padding: 2rem 1rem;
+  margin-right: -1rem;
+  padding-bottom: 50px; /* Adjust this value as needed */
+}
+
+h2 {
+  color: var(--secondary-color);
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  text-align: center;
+  position: relative;
+}
+
+
+
+/* Form Elements */
+.formcont {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+label {
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+input,
+select,
+textarea {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 0.875rem;
+  transition: var(--transition);
+  background-color: #fff;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Dynamic Fields */
+.dynamic-field-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.dynamic-field-group input {
+  flex: 1;
+}
+
+/* Buttons */
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+button[type="submit"] {
+  background: var(--primary-color);
+  color: white;
+}
+
+button[type="submit"]:hover {
+  background: var(--primary-light);
+}
+
+.cancel-button {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.cancel-button:hover {
+  background: var(--border-color);
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Add/Remove Field Buttons */
+.add-field-button {
+  background: var(--success-color);
+  color: white;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+}
+
+.remove-field-button {
+  background: var(--error-color);
+  color: white;
+  padding: 0.35rem;
+  font-size: 0.75rem;
+  min-width: auto;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+
+/* Similar Projects Dialog */
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.dialog-content {
+  background: var(--surface-color);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.similar-projects-list {
+  margin: 0.75rem 0;
+  padding: 0.75rem;
+  background: var(--background-color);
+  border-radius: var(--border-radius);
+  font-size: 0.875rem;
+}
+
+/* File Input */
+.file-input-wrapper {
+  position: relative;
+}
+
+.file-input-wrapper input[type="file"] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.file-input-label {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--primary-color);
+  color: white;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.file-name {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .overlaying-content {
+    margin: 0.5rem;
+    padding: 1rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .dynamic-field-group {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+/* Form Container */
+.overlaying-content {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 1000px;
+  margin: 2rem auto;
+  direction: rtl;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+/* Scrollable Form Content */
+.formcont {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2rem 1rem;
+  margin-right: -1rem;
+  padding-bottom: 100px; /* Increased space for fixed buttons */
+}
+
+/* Custom Scrollbar */
+form::-webkit-scrollbar {
+  width: 8px;
+}
+
+form::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+form::-webkit-scrollbar-thumb {
+  background: #00b4d8;
+  border-radius: 10px;
+}
+
+form::-webkit-scrollbar-thumb:hover {
+  background: #0077b6;
+}
+
+/* Form Grid Layout */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group span {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #1a374d;
+  font-size: 0.95rem;
+}
+
+/* Enhanced Input Styling */
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.875rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.75rem;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #00b4d8;
+  box-shadow: 0 0 0 4px rgba(0, 180, 216, 0.1);
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+/* Dynamic Fields */
+.dynamic-field {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  align-items: center;
+}
+
+.dynamic-field input {
+  flex: 1;
+}
+
+/* Add/Remove Field Buttons */
+.dynamic-field button,
+button[type="button"]:not(.cancel-button) {
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #00b4d8, #3a86ff);
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.dynamic-field button:hover:not(:disabled),
+button[type="button"]:not(.cancel-button):hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 180, 216, 0.2);
+}
+
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .overlaying-content {
+    width: 95%;
+    padding: 1rem;
+    height: 95vh;
+    margin: 1rem auto;
+  }
+
+
+
+
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .formcont {
+    padding: 1rem 0.5rem;
+    padding-bottom: 160px; /* More space for stacked buttons */
+  }
+}
+
+/* File Upload Enhancement */
+.file-upload {
+  border: 2px dashed #e2e8f0;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #f8fafc;
+}
+
+.file-upload:hover {
+  border-color: #00b4d8;
+  background-color: rgba(0, 180, 216, 0.05);
+}
+
+.file-upload input[type="file"] {
+  display: none;
+}
+.formcont {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2rem 1rem;
+  margin-right: -1rem;
+  padding-bottom: 50px; /* Adjust this value as needed */
+}
+.form-actions {
+  display: flex;
+  gap: 1rem; /* Add space between buttons */
+}
+
+.form-actions button {
+  flex: 1;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  min-width: 150px;
+  cursor: pointer; /* Change cursor to pointer */
+  outline: none; /* Remove default outline */
+}
+
+button[type="submit"] {
+  background: linear-gradient(135deg, #00b4d8, #3a86ff);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+button[type="submit"]:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.05); /* Scale effect */
+  box-shadow: 0 6px 20px rgba(58, 134, 255, 0.3); /* Enhanced shadow */
+  background: linear-gradient(135deg, #0096c7, #3a86ff); /* Darker gradient */
+}
+
+button[type="submit"]:focus {
+  outline: 2px solid #3a86ff; /* Focus outline for accessibility */
+  outline-offset: 2px; /* Space between outline and button */
+}
+.cancel-button {
+  background-color: #ffcccb; /* Light red background */
+  color: #b22222; /* Dark red text */
+  border: 2px solid #ff9999; /* Light red border */
+  transition: all 0.3s ease; /* Ensure smooth transition */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.cancel-button:hover:not(:disabled) {
+  background-color: #ff9999; /* Darker red background on hover */
+  transform: translateY(-2px) scale(1.05); /* Scale effect */
+  border-color: #ff6666; /* Change border color to a darker red */
+  box-shadow: 0 4px 12px rgba(255, 99, 71, 0.2); /* Subtle shadow effect */
+  color: #8b0000; /* Darker text color for contrast */
+}
+
+.cancel-button:focus {
+  outline: 2px solid #b22222; /* Focus outline for accessibility */
+  outline-offset: 2px; /* Space between outline and button */
+}
+
+/* Error Message Styling */
+.error-message {
+  direction: ltr;
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 77, 77, 0.1);
+  color: #ff4d4d;
+  font-size: 14.9em;
+  padding: 10px;
+  border: 1px solid #ff4d4d;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.error-message::before {
+  content: "⚠️";
+  margin-right: 8px;
+}
+/* Form Container */
+.overlaying-content {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 1000px;
+  margin: 2rem auto; /* Center the container */
+  direction: rtl;
+  height: auto; /* Change to auto to fit content */
+  display: flex;
+  flex-direction: column;
+  padding: 1rem; /* Add padding for inner spacing */
+}
+
+/* Scrollable Form Content */
+.formcont {
+  flex: 1;
+  overflow-y: auto; /* Allow vertical scrolling */
+  padding: 2rem 1rem; /* Adjust padding as needed */
+  margin: 0; /* Remove negative margin */
+  padding-bottom: 20px; /* Adjust this value as needed to reduce bottom space */
+}.link-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  transition: background-color 0.3s;
+}
+
+.link-button:hover {
+  background-color: #0056b3;
+}
+.similar-projects-error {
+  background: #f9f9f9;
+  color: #333;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: right;
+  direction: rtl;
+  font-family: "Tajawal", sans-serif;
+}
+
+.error-message {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #d9534f;
+}
+
+.error-description {
+  color: #856404;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.similar-projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.similar-project-card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out;
+}
+
+.similar-project-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.project-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #0275d8;
+}
+
+.project-description {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.project-similarity span {
+  color: #d9534f;
+  font-weight: bold;
+}
+
+.project-type span {
+  color: #5cb85c;
+  font-weight: bold;
+}
+
+.view-details-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 15px;
+  color: #ffffff;
+  background: #0275d8;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.view-details-btn:hover {
+  background: #025aa5;
+  box-shadow: 0 2px 8px rgba(2, 117, 216, 0.3);
+}
+
+.confirm-add-btn {
+  margin-top: 20px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  background: #5cb85c;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.confirm-add-btn:hover {
+  background: #4cae4c;
+  box-shadow: 0 2px 8px rgba(92, 184, 92, 0.3);
+}

@@ -1,0 +1,30 @@
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.file-name {
+  word-wrap: break-word; /* Allow long file names to wrap */
+  overflow-wrap: break-word; /* Ensure compatibility with different browsers */
+  white-space: normal; /* Allow text to wrap */
+  margin-bottom: 5px; /* Space between file name and preview */
+  font-size: 14px; /* Adjust font size as needed */
+  color: #333; /* Text color */
+  width: 100%; /* Ensure it takes the full width */
+}
+
+.file-upload img {
+  margin-top: 10px; /* Space between file name and image preview */
+  max-width: 100%; /* Ensure the image does not exceed the container width */
+  max-height: 200px; /* Set a max height for the image */
+  border: 2px solid #ccc; /* Add a border */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a shadow */
+  object-fit: contain; /* Maintain aspect ratio and fit within the box */
+}

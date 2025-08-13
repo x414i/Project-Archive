@@ -1,0 +1,35 @@
+# Use the Node.js image as a base
+FROM node:16-alpine AS build
+
+# Set the working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the entire app
+COPY . .
+
+# Build the application for production
+RUN npm run build
+
+# Use a lightweight server to serve the static files
+FROM node:16-alpine
+
+# Install serve globally
+RUN npm install -g serve
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the build output to the new image
+COPY --from=build /app/build .
+
+# Expose the port the app runs on
+EXPOSE 3000
+
+# Start the server
+CMD ["serve", "-s", ".", "-l", "3000"]
